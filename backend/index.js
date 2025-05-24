@@ -7,7 +7,8 @@ require("dotenv").config();
 const app = express();
 app.use(express.json());
 const allowedOrigins = [
-  "http://localhost:3000"
+  "http://localhost:3000",
+  "https://to-do-frontend-two-beta.vercel.app"
 ];
 
 const corsOptions = {
