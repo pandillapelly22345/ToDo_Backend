@@ -6,7 +6,25 @@ require("dotenv").config();
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+const allowedOrigins = [
+  "http://localhost:3000"
+];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  methods: ["GET", "POST", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type"],
+  credentials: true
+};
+
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions)); // optional for preflight support
 
 const con = mysql.createConnection(
   {
